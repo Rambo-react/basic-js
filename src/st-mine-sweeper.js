@@ -23,7 +23,48 @@ import { NotImplementedError } from '../extensions/index.js';
  *  [1, 1, 1]
  * ]
  */
-export default function minesweeper (/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function minesweeper (matrix) {
+  let outMatrix = [];
+
+  for (let i = 0; i < matrix.length; i++) {
+
+      let tmpArray = [];
+
+      for (let k = 0; k < matrix[i].length; k++) {
+
+          let countMines = 0;
+
+          //left
+          countMines += Number((typeof(matrix[i]?.[k - 1]) == 'undefined') ? false : matrix[i]?.[k - 1]);  
+  
+          //left-top
+          countMines += Number((typeof(matrix[i - 1]?.[k - 1]) == 'undefined') ? false : matrix[i - 1]?.[k - 1]); 
+
+          //top
+          countMines += Number((typeof(matrix[i - 1]?.[k]) == 'undefined') ? false : matrix[i - 1]?.[k]);
+
+          //right-top
+          countMines += Number((typeof(matrix[i - 1]?.[k + 1]) == 'undefined') ? false : matrix[i - 1]?.[k + 1]);
+
+          //right
+          countMines += Number((typeof(matrix[i]?.[k + 1]) == 'undefined') ? false : matrix[i]?.[k + 1]);
+
+          //right-down
+          countMines += Number((typeof(matrix[i + 1]?.[k + 1]) == 'undefined') ? false : matrix[i + 1]?.[k + 1]);
+
+          //down
+          countMines += Number((typeof(matrix[i + 1]?.[k]) == 'undefined') ? false : matrix[i + 1]?.[k]);
+
+          //left-down
+          countMines += Number((typeof(matrix[i + 1]?.[k - 1]) == 'undefined') ? false : matrix[i + 1]?.[k - 1]);
+
+          tmpArray.push(countMines);
+      
+      }    
+
+      outMatrix.push(tmpArray);
+
+  }
+
+  return outMatrix;
 }

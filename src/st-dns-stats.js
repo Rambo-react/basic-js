@@ -22,7 +22,53 @@ import { NotImplementedError } from '../extensions/index.js';
  * }
  *
  */
-export default function getDNSStats(/* domains */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function getDNSStats(domains) {
+  let mapOfDomains = new Map();
+let outObj = {};
+
+for (let item of domains) {
+
+	let arrItem = item.split(".");
+
+	arrItem.forEach( (item, index, array)=>{
+
+		let tmpDomain;
+
+		(index === arrItem.length - 1) 
+		? tmpDomain = "." + item 
+		: tmpDomain = array.slice(index).join(".");
+		
+		(mapOfDomains.get(tmpDomain)) 
+		? mapOfDomains.set(tmpDomain, mapOfDomains.get(tmpDomain) + 1 ) 
+		: mapOfDomains.set(tmpDomain, 1 );
+
+	} )
+
+}
+
+mapOfDomains.forEach( (value, key)=>{
+
+	let nameKeyArr = key.split(".").reverse()
+
+	let newNameKey = "";
+
+	for (let i of nameKeyArr) {
+
+		if (i) {
+			newNameKey += "." + i
+		}
+
+	}
+
+	outObj[newNameKey] = value;
+
+} )
+
+const orderedOutObj = {};
+Object.keys(outObj).sort().forEach(function(key) {
+  orderedOutObj[key] = outObj[key];
+});
+
+
+return orderedOutObj;
 }
