@@ -17,15 +17,20 @@ import { NotImplementedError } from '../extensions/index.js';
  * The result should be 9
  */
 export default function getMatrixElementsSum(arr) {
-  let outSum = 0;
+	let outSum = 0;
 
 	for (let i = 0; i < arr.length; i++) {
 
-		for (let k = 0; k<arr[i].length; k++) {
+		for (let k = 0; k < arr[i].length; k++) {
 
-            if (typeof(arr[i - 1]?.[k]) == 'undefined' || arr[i - 1]?.[k] !== 0) {
-            	outSum += arr[i][k];
-            }
+			if (arr[i - 1] == undefined || arr[i - 1][k] || arr[i - 1][k] !== 0) {
+				outSum += arr[i][k];
+
+			}
+
+			// if (typeof (arr[i - 1]?.[k]) == 'undefined' || arr[i - 1]?.[k] !== 0) {
+
+			// }
 
 		}
 
